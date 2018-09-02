@@ -1,5 +1,5 @@
 <template>
-    <div class="Warper  HeaderWarper">
+    <div :class="scrollMove" class="Warper  HeaderWarper">
       <div class="warp  header">
 
         <h1 class="pointer">
@@ -9,7 +9,7 @@
         </h1>  
         <!-- header图标 -->
         <ul class="flexB ">
-          <li class="fz14 pointer color" v-for="(ii,id) in [
+          <li :class="NavActive == id ? 'NavActive' : ''"  class="fz14 pointer color" v-for="(ii,id) in [
             {
               text:'首页'
             },
@@ -45,17 +45,35 @@
 export default {
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      scrollMove:'',
+      NavActive:0,
     }
+  },
+  mounted(){
+    window.onscroll = ()=>{
+      if(document.documentElement.scrollTop > 1){
+        this.scrollMove = 'Headermove'
+      }else{
+        this.scrollMove = ''
+
+      }
+    }
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.Headermove{
+
+  background-color: #232455;
+}
 .HeaderWarper{
     position: fixed;
-    // position: sticky;
+    /*// position: sticky;*/
+     transition: all 1s;
     top:0;
     z-index: 2;
     .header{
@@ -79,6 +97,7 @@ export default {
         line-height: 70px;
         float: left;
         >li{
+          transition: all .5s;
           color: var(--color);
           &:hover{
             color: #6c6792;

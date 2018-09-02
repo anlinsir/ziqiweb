@@ -1,6 +1,20 @@
 <template>
  	<div class="Warper">
  		<Header />
+
+ 		<ul class="aside">
+ 			<li class=" pointer" v-for="(ii,id) in 3">
+ 				<span class="bb" v-if='id == 1'>
+ 					<img src="">
+ 					<span class="fz12">关注微信公众号</span>
+ 				</span>
+ 			</li>
+ 		</ul>
+
+
+
+
+
  		<div class="Topwarper">
  			<div class="Topwarp mw rb color">
  				<div class="positionCenter center">
@@ -15,7 +29,10 @@
 		<div class="section1Warper  Warper">
 			<div class="section1 warp rb">
 				<ul class="flexB">
+
+				  
 					<li class="pl">
+
 						<div class="shadowText color">
 							<p class="back">服务技术</p>
 							<p class="forword">服务技术</p>
@@ -26,22 +43,34 @@
 							技术服务内容
 						</p>
 
+						<!-- <div class="seversChose">
+							<span @click="switcher(id)" :class="section1ShowSub == id ? 'section1ShowSub lh pointer center' : 'lh pointer center' " class="lh pointer center" v-for="(ii,id) in 4">{{id + 1}}</span>
+						</div> -->
+						<div style="margin-top: 89px;" class="swiper-pagination"></div>
+
 					</li>
 					<!-- 选择板块 -->
-					<li>
-						<p class="img" style="height: 217px;background-position: -11px -86px;"></p>
-						<p class="fwb fz18 center white" style="margin-bottom:43px;">根链平台及以太坊智能合约</p>
-						<p class="w266 white fz14">
-							实施智能合约以让合约在根链平台及以太坊自动执行。我们可以从定义开始为您撰写智能合约代码。
-						</p>
-					</li>
-					<li>
+					<div class="swiper-container">
+					    <div class="swiper-wrapper">
+					        <li class="swiper-slide" v-for="(ii,id) in 8">
+								<p class="img" style="height: 217px;background-position: -11px -86px;"></p>
+								<p class="fwb fz18 center white" style="margin-bottom:43px;">{{id+ 1}}根链平台及以太坊智能合约</p>
+								<p class="w266 white fz14">
+									实施智能合约以让合约在根链平台及以太坊自动执行。我们可以从定义开始为您撰写智能合约代码。
+								</p>
+							</li>
+					    </div>
+					   
+					</div>
+				   
+					
+					<!-- <li>
 						<p class="img" style="height: 217px;background-position: -391px -86px;"></p>
 						<p class="fwb fz18 center white" style="margin-bottom:43px;">区块链技术</p>
 						<p class="w266 white fz14">
 							使用基于密码的技术来储存不可变数据。我们可以帮助您选择适合此技术的程序。
 						</p>
-					</li>
+					</li> -->
 
 				</ul>
 			</div>		
@@ -204,12 +233,23 @@
 					</div>
 
  				</div>
- 				<div class="right rb Right">
+ 				<div class="right Right">
  					<div class="shadowText  " style="margin-top:30px;">
 						<p style="color:rgba(228,228,242,0.4);" class="back">业务咨询</p>
 						<p class="forword ">业务咨询</p>
 						<span class="lh fz14">填写以下内容发送给我们，我们将在24小时内联系您</span>
 					</div>
+
+					<form>
+						<input type="text"   placeholder="成都某某某科技有限公公司" />
+						<input type="text"  placeholder="您的姓名(必填)" />
+						<input type="text"  placeholder="联系电话(必填)" />
+						<input type="text"  placeholder="微信号(必填)" />
+						<input type="text"  placeholder="标题" />
+						<textarea placeholder="咨询内容……"></textarea>
+						<button class="pointer">发 送</button>
+					</form>
+
 
 
 
@@ -217,6 +257,10 @@
 
  			</div>		
  		</div>
+ 		<!-- section5 -->
+
+
+ 		<Footer />
 
 
  	</div>
@@ -224,6 +268,8 @@
 
 <script>
 	import Header from '../components/header'
+	import Footer from '../components/footer'
+	import { swiper, swiperSlide } from 'vue-awesome-swiper'
 	export default {
 	  
 	  data () {
@@ -232,9 +278,17 @@
 	      cityChoose:0,
 	      left:'10px',
 	      flaseLeft:'',
+	      section1Show:0,//显示
+	      section1ShowSub:0,//选择
+	      swiperOption: {
+       
+			
+        
+    	  }
 	    }
 	  },
 	  methods:{
+	  	
 		  	lineChangeLeave(){
 		  		this.left = this.flaseLeft
 		  	},
@@ -263,14 +317,107 @@
 		  	}
 	  },
 	  components:{
-	  	Header
+	  	Header ,
+	  	Footer,
+	  	swiper,
+    	swiperSlide
+	  },
+	  mounted(){
+	  	setTimeout(()=>{
+	  		var mySwiper = new Swiper ('.swiper-container', {
+			   	slidesPerView :2,
+				spaceBetween: 30,  
+				slidesPerGroup: 2,  
+				loopFillGroupWithBlank: true,//在loop模式下，为group填充空白slide  
+			   	 pagination: {
+			      el: '.swiper-pagination',
+			      clickable :true,
+			      renderBullet: function (index, className) {
+			          return '<span style="display:inline-block;width:26px;height:26px;margin-right:8px;outline:none;line-height:26px;" class="' + className + ' white  ">' + (index + 1) + '</span>';
+			        },
+
+			    },
+			   
+
+			  })       
+	  	},200)
 	  }
 	}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
 .Warper{
+	.aside{
+		position: fixed;
+		right: 39px;
+		width: 36px;
+		min-height: 100px;
+		top:300px;
+		z-index: 10;
+		>li{
+			border-radius: 50%;
+			width: 36px;
+			height: 36px;
+			margin-bottom: 14px;
+			background:linear-gradient(112deg,rgba(108,91,175,1),rgba(82,62,162,1));
+			box-shadow:0px 8px 13px 0px rgba(92,87,132,0.15);
+			position: relative;
+			&:hover{
+				background:linear-gradient(112deg,rgba(108,91,175,.5),rgba(82,62,162,.5));
+			}
+			&:hover >span{
+				display: inline-block;
+			}
+			>span{
+
+				display: none;
+				position: absolute;
+				top:-35px;
+				left: -133px;
+				width: 108px;
+				height: 114px;
+				background-color: #fff;
+				border-radius:10px;
+				padding: 5px;
+				box-shadow:0px 8px 13px 0px rgba(92,87,132,0.15);
+				>img{
+					width: 83px;
+					height: 83px;
+					margin-left: 7px;
+				}
+				&::after{
+					content:'';
+					
+					border: 10px solid  #fff;
+					border-bottom: 10px solid  transparent;
+					border-right: 10px solid  transparent;
+					position: absolute;
+					right: -20px;
+					top: 50%;
+					transform: translateY(-80%);
+					border-top: 10px solid  transparent;
+					border-left: 10px solid  #fff;
+
+
+				}
+			}
+		}
+	}
+	.section1ShowSub{
+		background:linear-gradient(112deg,rgba(255,255,255,1),rgba(80,82,126,1));
+	}
+	.swiper-pagination{
+		.swiper-pagination-bullet{
+			width: 26px !important;
+			height: 26px !important;
+			transition: all .5s !important;
+			border-radius: 50% !important;
+			line-height: 26px !important;
+		}	
+	}
+
 	.Topwarper{
 		height: 679px;
 		background-image: url('/static/img/indexbg.png');
@@ -305,15 +452,41 @@
 				top:-160px;
 				>.pl{
 					padding-left: 30px;
+					
+					
+					
+					/*>.seversChose{
+						margin-top: 89px;
+						>span{
+							width: 26px;
+							height: 26px;
+							transition: all .5s;
+							border-radius: 50%;
+							line-height: 26px;
+						}
+					}*/
 				}
-				>li{
-					width:335px;
+				>.flex{
+					width: 687px;
+				}
+				.swiper-container{
+					width: 723px;
+				}
+				.swiper-wrapper{
+					>:nth-child(2n + 1){
+						margin-left: 50px;
+					}
+				}
+
+
+				.swiper-slide,.pl{
+					width:320px !important;
 					height:431px;
 					background:#222454;
 					opacity:0.95;
 					border-radius:10px;
 					box-shadow:0px 7px 35px 0px rgba(45,47,93,0.63);
-					
+					margin-right: 30px;
 					box-sizing: border-box;
 					>.w266{
 						width: 266px;
@@ -327,6 +500,7 @@
 				}
 
 			}
+
 		}
 	}
 	>.section2Warper{
@@ -518,6 +692,7 @@
 	}
 	>.section5Warper{
 		height: 1239px;
+		margin-bottom: 126px;
 		>.section5{
 			padding-top: 102px;
 			height: 1239px;
@@ -589,6 +764,59 @@
 						color:rgba(135,135,135,1);
 						right: 66px;
     					top: 17px;
+					}
+				}
+				>form{
+					width: 100%;
+					>input{
+						width:540px;
+						height:66px;
+						border:1px solid rgba(238,238,238,1);
+						color:rgba(24,24,24,1);
+						border-radius:10px;
+						margin-bottom: 22px;
+						transition: all .5s;
+						padding-left: 31px;
+						&::placeholder{
+							color:rgba(181,181,181,1);
+						}
+						&:focus{
+							border:1px solid rgba(84,203,197,1);
+							box-shadow:6px 7px 21px 0px rgba(132,234,213,0.19);
+							transform: translateY(-1px);
+						}
+					}
+					>textarea{
+						width:540px;
+						height:388px;	
+						background:rgba(255,255,255,1);
+						border:1px solid rgba(238,238,238,1);
+						padding:  25px 0 0 31px;
+						border-radius:10px;
+						transition: all .5s;
+						resize: none;
+						margin-bottom: 23px;
+						&::placeholder{
+							color:rgba(181,181,181,1);
+						}
+						&:focus{
+							border:1px solid rgba(84,203,197,1);
+							box-shadow:6px 7px 21px 0px rgba(132,234,213,0.19);
+							transform: translateY(-1px);
+						}
+					}
+					>button{
+						width:234px;
+						height:54px;
+						background:linear-gradient(112deg,rgba(48,157,180,1),rgba(109,235,209,1));
+						border-radius:27px;
+						box-shadow:0px 7px 21px 0px rgba(117,219,199,0.27);
+
+						font-size:18px;
+						font-family:MicrosoftYaHei;
+						font-weight:400;
+						color:rgba(255,255,255,1);
+						line-height:54px;
 					}
 				}
 			}

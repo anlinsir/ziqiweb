@@ -105,7 +105,7 @@ a{
   color: #000;
   text-decoration: none;
 }
-input , button {
+input , button , textarea{
   outline: none;
   background-color: #fff;
   border:none;
