@@ -14,7 +14,8 @@
 						<img src="/static/img/footerLogo.png">
 					</dt>
 					<dd class="flex"> 
-						<span class="rb lh" v-for="(ii,id) in 8">
+						<!--   -->
+						<span  class="rb lh" :style="{backgroundPosition:ii.imgp,marginBottom:id > 3 ? '30px' :''}" v-for="(ii,id) in [{imgp:'0px 0px'},{imgp:'-231px -2px'},{imgp:'-463px -4px'},{imgp:'-695px -4px'},{imgp:'-0px -95px'},{imgp:'-231px -95px'},{imgp:'-463px -95px'},{imgp:'-695px -95px'}]">
 							x
 						</span>
 					</dd>
@@ -84,10 +85,12 @@
 							margin-right: 0px;
 						}
 						>span{
+							background-image: url('/static/img/footerImgs.png');
 							width: 144px;
 							height: 60px;
 							margin-right: 50px;
 							margin-bottom: 40px;
+							background-repeat: no-repeat;
 
 						}
 					}

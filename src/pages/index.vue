@@ -2,18 +2,63 @@
  	<div class="Warper">
  		<Header />
 
+ 		<div @click.self='displayBlockShow = !displayBlockShow' v-show='displayBlockShow' class="displayBlock" :style="{height:fullHeight + 'px'}">
+ 			<span @click='displayBlockShow = !displayBlockShow' class="lh outside close pointer "><img src="/static/img/close.png" ></span>
+
+ 			 <transition
+			    name="custom-classes-transition"
+			    enter-active-class="animated flipInY"
+			    leave-active-class="animated flipOutY"
+			  >
+	 			<div v-show='displayBlockShowSub' class="subDisplayBlock">
+		 			<span @click='turnLeft' class="lh outside leftarr pointer "><img src="/static/img/left.png" ></span>
+
+		 			<span class="lh outside rightarr pointer "><img src="/static/img/right.png" ></span>
+
+	 				<div class="Toparea bb">
+	 					<dl class="flex">
+	 						<dt>
+	 							<img src="/static/img/indexlogo.png" >
+	 						</dt>
+	 						<dd>
+	 							<p class="tit fz18 fwb">搜多多 </p>
+	 							<p class="dir fz14">数字资产行情</p>
+
+	 						</dd>
+	 					</dl>
+
+	 					<div class="btnGroup Right">
+	 						<button @click="backLeft = backLeft == '0px' ? '-85px' : '0px' " :style="{backgroundColor:backLeft == '0px' ? '' : '#f6f6f6' }" class="Show">APP下载</button>
+	 						<button :style="{left:backLeft}" class="back"></button>
+	 						<button>官网链接</button>
+	 					</div>
+	 				</div>
+
+	 				<div class="BigImg rb">
+	 					<img src="/static/img/pic1.png">
+	 				</div>
+	 				<div class="subImgsChoose bb">
+	 					<ul class="flex">
+	 						<li class="rb" v-for="(ii,id) in ['/static/img/pic2.png','/static/img/pic3.png','/static/img/pic4.png']">
+	 							<img :src="ii" alt="">
+	 						</li>
+	 					</ul>
+	 				</div>
+	 			</div>
+	 		  </transition>
+
+ 		</div>
+
+
  		<ul class="aside">
- 			<li class=" pointer" v-for="(ii,id) in 3">
+ 			<li @click="AisdeClick(id)" :style="{backgroundPosition:ii.imgP ,backgroundColor:id == 0 ? 'rgba(255,255,255)' : 'rgba(82,62,162,1)' }" class=" pointer" v-for="(ii,id) in [{imgP:'center 15px'},{imgP:'center -37px'},{imgP:'center -89px'}]">
+
  				<span class="bb" v-if='id == 1'>
  					<img src="">
- 					<span class="fz12">关注微信公众号</span>
+ 					<span class="fz12 center lh">关注微信公众号</span>
  				</span>
  			</li>
  		</ul>
-
-
-
-
 
  		<div class="Topwarper">
  			<div class="Topwarp mw rb color">
@@ -50,13 +95,74 @@
 
 					</li>
 					<!-- 选择板块 -->
-					<div class="swiper-container">
+					<div class="swiper-container" id='sb'>
 					    <div class="swiper-wrapper">
-					        <li class="swiper-slide" v-for="(ii,id) in 8">
-								<p class="img" style="height: 217px;background-position: -11px -86px;"></p>
-								<p class="fwb fz18 center white" style="margin-bottom:43px;">{{id+ 1}}根链平台及以太坊智能合约</p>
-								<p class="w266 white fz14">
-									实施智能合约以让合约在根链平台及以太坊自动执行。我们可以从定义开始为您撰写智能合约代码。
+					        <li class="swiper-slide center" v-for="(ii,id) in [
+					        	{
+					        		imgPoint:'-11px -86px',
+					        		title:'根链平台及以太坊智能合约',
+					        		deriction:'实施智能合约以让合约在根链平台及以太坊自动执行。我们可以从定义开始为您撰写智能合约代码。'
+					        	},
+					        	{
+					        		imgPoint:'-395px -86px',
+					        		title:'区块链技术',
+					        		deriction:'使用基于密码的技术来储存不可变数据。我们可以帮助您选择适合此技术的程序。'
+					        	},
+					        	{
+					        		imgPoint:'-11px -560px',
+					        		title:'智能合约审计',
+					        		deriction:'在您将智能合同部署到区块链时，安全缺陷、不当行为和效率低下会带来高昂的代价。我们帮助公司写出可靠的智能合约代码。'
+					        	},
+					        	{
+					        		imgPoint:' -404px -565px',
+					        		title:'超级账本',
+					        		deriction:'金融、保健、零售、制造等区块链发展。'
+					        	},
+					        	{
+					        		imgPoint:'-11px -1044px',
+					        		title:'私人区块链',
+					        		deriction:'在您的机构或公司实施私人区块链。'
+					        	},
+					        	{
+					        		imgPoint:'-397px -1046px',
+					        		title:'货币兑换',
+					        		deriction:'开发安全可靠的加密货币兑换。'
+					        	},
+					        	{
+					        		imgPoint:'-15px -1533px',
+					        		title:'付款网关',
+					        		deriction:'接受加密货币并即时将之转换为您的优选货币或将之存至您的钱包。'
+					        	},
+					        	{
+					        		imgPoint:'-394px -1533px',
+					        		title:'钱包',
+					        		deriction:'保护传统钱包和多重签名钱包以确保安全。'
+					        	},
+					        	{
+					        		imgPoint:'-4px -1999px',
+					        		title:'履约保证',
+					        		deriction:'在满足特定条件时释放加密货币付款。'
+					        	},
+					        	{
+					        		imgPoint:'-387px -2011px',
+					        		title:'众筹',
+					        		deriction:'允许个人和组织接受全世界对其项目的投入或投资。'
+					        	},
+					        	{
+					        		imgPoint:'-15px -2481px',
+					        		title:'训练',
+					        		deriction:'教您的团队理解区块链技术并为接下来的动作作准备。'
+					        	},
+					        	{
+					        		imgPoint:'-395px -2487px',
+					        		title:'匿名化',
+					        		deriction:'使用额外匿名化措施，如混币，以保障隐私。'
+					        	},
+					        ]">
+								<p class="img"  style="height: 217px;" :style="{backgroundPosition:ii.imgPoint}"></p>
+								<p class="fwb fz18 center white" style="margin-bottom:40px;">{{ii.title}}</p>
+								<p class="w266 white fz14 lh ">
+									{{ii.deriction}}
 								</p>
 							</li>
 					    </div>
@@ -140,17 +246,18 @@
 				</div>
 
 				<ul class="flexB">
-					<li class="" v-for='(i,d) in 2' >
-						<div class="hover transition">
+					<swiper :options="swiperOption" ref="mySwiper">
+					<swiper-slide class="li" v-for='(i,d) in 8' >
+						<div @click="showDislpay" class="hover transition">
 							<div class="bottom bb">
 								<p class="white name ">搜多多SOUDUODUO</p>
 								<p class="fz16 white ">数字资产行情</p>
 								<img class="Right box" src="/static/img/button.png" alt="">
 							</div>
 						</div>
-					</li>
-					
-
+					</swiper-slide>
+					</swiper>
+					<!-- <div class="swiper-pagination swiper-paginationsss"  slot="pagination"></div> -->
 				</ul>
 
 
@@ -229,7 +336,7 @@
 					</div>
 
 					<div class="map rb">
-						map
+						<div id="container" style="width:100%; height:100%"></div>
 					</div>
 
  				</div>
@@ -270,6 +377,8 @@
 	import Header from '../components/header'
 	import Footer from '../components/footer'
 	import { swiper, swiperSlide } from 'vue-awesome-swiper'
+	import { lazyAMapApiLoaderInstance } from 'vue-amap';
+	 
 	export default {
 	  
 	  data () {
@@ -281,14 +390,46 @@
 	      section1Show:0,//显示
 	      section1ShowSub:0,//选择
 	      swiperOption: {
-       
-			
-        
-    	  }
+       			slidesPerView :2,
+				spaceBetween: 30,  
+				slidesPerGroup: 2,  
+				loopFillGroupWithBlank: true,//在loop模式下，为group填充空白slide  
+    	  },
+    	  backLeft:'0px',
+    	  fullHeight:'',
+    	  displayBlockShow:false,
+    	  displayBlockShowSub:true,
+    	  map:'',
+    	  marker:'',
+
 	    }
 	  },
 	  methods:{
-	  	
+	  	 	
+	  		turnLeft(){
+	  			this.displayBlockShowSub = false
+	  			setTimeout(()=>{
+	  				this.displayBlockShowSub = true
+	  			},2000)
+	  		},
+	  		showDislpay(){//
+	  			this.displayBlockShow = !this.displayBlockShow
+
+	  		},
+	  		AisdeClick(id){
+	  			switch (id){
+	  				case 0:
+	  					document.documentElement.scrollTop = 0
+	  					document.body.scrollTop = 0
+	  					break;
+	  				case 1:
+
+	  					break;
+	  				case 2:
+
+	  					break;
+	  			}
+	  		},
 		  	lineChangeLeave(){
 		  		this.left = this.flaseLeft
 		  	},
@@ -323,8 +464,35 @@
     	swiperSlide
 	  },
 	  mounted(){
+	  	this.fullHeight = document.documentElement.clientHeight
+	  	window.onresize = ()=>{
+	  		this.fullHeight = document.documentElement.clientHeight
+	  	}
+
+	  	lazyAMapApiLoaderInstance.load().then(() => {
+	        this.map = new AMap.Map('container', {
+	        	center: new AMap.LngLat(104.0701200000,30.5445100000),
+	        	zoom:16,
+	        });
+	       	var marker = new AMap.Marker({
+			    position:[104.0701200000,30.5445100000],
+			    map: this.map,
+			    bubble:true,
+			    animation:"AMAP_ANIMATION_DROP",
+			    title:'成都子奇科技有限公司'
+			    //draggable:true,
+			});
+			var msg_label = "成都子奇科技有限公司";
+			marker.setLabel({
+			    offset: new AMap.Pixel(-45,-30), //显示位置
+			    content: msg_label //显示内容
+			});
+	      });
+	  		
+
+
 	  	setTimeout(()=>{
-	  		var mySwiper = new Swiper ('.swiper-container', {
+	  		var mySwiper = new Swiper ('#sb', {
 			   	slidesPerView :2,
 				spaceBetween: 30,  
 				slidesPerGroup: 2,  
@@ -347,25 +515,150 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.displayBlock{
+	position: fixed;
+	width: 100%;
+	z-index: 20;
+	top:0;
+	overflow: auto;
+	background-color: rgba(0,0,0,.4);
+	.outside{
+		position: absolute;
+		color: #fff;
+	}
+	.close{
+		width: 30px;
+		height: 30px;
 
+		right: 38px;
+		top:48px;
+	}
+	.leftarr{
+		left: -41px;
+		top:50%;
+	}
+	.rightarr{
+		right: -41px;
+		top:50%;	
+	}
+	.subDisplayBlock{
+		position: relative;
+		width: 850px;
+		min-height: 500px;
+		background:rgba(255,255,255,1);
+		border-radius:10px;
+		margin: auto;
+		// margin-top: 46px;
+		>.Toparea{
+			width: 100%;
+			height: 115px;
+			padding:26px 20px 0 43px;
+			>dl{
+
+				float: left;
+				>dt{
+					width: 60px;
+					height: 60px;
+					margin-right: 21px;
+					>img{
+						width: 36px;
+						height: 36px;
+					}
+				}
+				>dd{
+					>.tit{
+
+					}
+					>.dir{
+						color:rgba(98,98,98,1);
+					}
+				}
+			}
+			>.btnGroup{
+				position: relative;
+				>.back{
+					position: absolute;
+					left: 0;
+					z-index: 1;
+					transition:all .5s;
+					background: url('/static/img/android.png') 15px center,url('/static/img/ios.png') 60px center;
+					background-repeat: no-repeat;
+				}
+				>.Show{
+					position: relative;
+					z-index: 2;
+
+				}
+				>.Show:hover +.back{
+					left: -85px;
+				}
+
+				>button{
+					width:110px;
+					height:38px;
+					background:rgba(255,255,255,1);
+					border:1px solid rgba(229,229,229,1);
+					border-radius:19px;
+					font-size:14px;
+					color:rgba(136,135,135,1);
+					margin-right: 20px;
+					cursor: pointer;
+				}
+			}
+
+		}
+		>.BigImg{
+			width: 100%;
+			height: 640px;
+			>img{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		>.subImgsChoose{
+			width: 100%;
+			height: 192px;
+
+			padding: 43px 0 0 49px;
+			>ul{
+				>li{
+					width: 147px;
+					height: 111px;
+					margin-right: 28px;
+					cursor: pointer;
+					>img{
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+
+		}
+
+	}
+}
 .Warper{
 	.aside{
 		position: fixed;
 		right: 39px;
 		width: 36px;
 		min-height: 100px;
-		top:300px;
+		bottom:100px;
 		z-index: 10;
+		transition:all 1s;
 		>li{
 			border-radius: 50%;
 			width: 36px;
 			height: 36px;
 			margin-bottom: 14px;
-			background:linear-gradient(112deg,rgba(108,91,175,1),rgba(82,62,162,1));
+			background-color:rgba(82,62,162,1);
 			box-shadow:0px 8px 13px 0px rgba(92,87,132,0.15);
 			position: relative;
+			background-image: url('/static/img/asideImg.png');
+			background-repeat: no-repeat;
+
 			&:hover{
-				background:linear-gradient(112deg,rgba(108,91,175,.5),rgba(82,62,162,.5));
+				background-color:rgba(82,62,162,.4);	
 			}
 			&:hover >span{
 				display: inline-block;
@@ -386,6 +679,9 @@
 					width: 83px;
 					height: 83px;
 					margin-left: 7px;
+				}
+				>.center{
+					margin-left: 5px;
 				}
 				&::after{
 					content:'';
@@ -452,19 +748,6 @@
 				top:-160px;
 				>.pl{
 					padding-left: 30px;
-					
-					
-					
-					/*>.seversChose{
-						margin-top: 89px;
-						>span{
-							width: 26px;
-							height: 26px;
-							transition: all .5s;
-							border-radius: 50%;
-							line-height: 26px;
-						}
-					}*/
 				}
 				>.flex{
 					width: 687px;
@@ -490,10 +773,11 @@
 					box-sizing: border-box;
 					>.w266{
 						width: 266px;
-						margin-left: 40px;
+						margin-left: 8px;
 						line-height:36px;
 					}
 					>p{
+
 						line-height:30px;
 					}
 					
@@ -580,7 +864,7 @@
 			}
 			>ul{
 				width: 1100px;
-				>li{
+				.li{
 					border-radius:10px;
 					height: 347px;
 					width: 537px;
@@ -626,9 +910,11 @@
 		height: 839px;
 		background-image: url('/static/img/indexSubBg.png');
 		background-repeat: no-repeat;
-		background-position: center; 
+		background-position: center;
+		overflow: hidden; 
 		>.section4{
 			height: 839px;
+			overflow: hidden;
 			>.shadowText{
 				margin-bottom: 61px;
 				margin-top: 71px;

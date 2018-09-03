@@ -9,7 +9,7 @@
         </h1>  
         <!-- header图标 -->
         <ul class="flexB ">
-          <li :class="NavActive == id ? 'NavActive' : ''"  class="fz14 pointer color" v-for="(ii,id) in [
+          <li @click='toSomePages(id)' :class="NavActive == id ? 'NavActive' : ''"  class="fz14 pointer color" v-for="(ii,id) in [
             {
               text:'首页'
             },
@@ -48,6 +48,15 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       scrollMove:'',
       NavActive:0,
+    }
+  },
+  methods:{
+    toSomePages(id){
+      if(id == 3){
+        this.$router.push('/news')
+      }else if(id == 0){
+          this.$router.push('/')
+      }
     }
   },
   mounted(){
