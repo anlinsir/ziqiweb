@@ -96,7 +96,12 @@ html,body{
 .box{
   border-radius: 50%;
 }
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 
+}
 
 ul li{
   list-style: none;

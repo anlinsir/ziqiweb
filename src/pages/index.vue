@@ -89,6 +89,7 @@
  		</ul>
 
  		<div class="Topwarper">
+ 			<canvas></canvas>
  			<div class="Topwarp mw rb color">
  				<div class="positionCenter center">
  					<p class="Bigtitle">创新的区块链技术解决方案与 <br> 一站式应用落地孵化</p>
@@ -127,62 +128,62 @@
 					    <div class="swiper-wrapper">
 					        <li style="margin-right:40px;" class="swiper-slide center" v-for="(ii,id) in [
 					        	{
-					        		imgPoint:'-11px -86px',
+					        		imgPoint:'-53px 2px',
 					        		title:'数字资产',
 					        		deriction:'基于区块链平台提供票据的资产化数字能力（发行、转让、贴现、兑付等），可应用于数字票据、共享积分、优惠券、数字TOKEN、股权登记等业务场景。'
 					        	},
 					        	{
-					        		imgPoint:'-395px -86px',
+					        		imgPoint:'-428px -8px',
 					        		title:'鉴证证明',
 					        		deriction:'基于超级账本(hyperledger)搭建区块链鉴证证明服务平台，可应用于知识产权、保单保全、公益捐赠、个人和企业资质证明等业务场景。'
 					        	},
 					        	{
-					        		imgPoint:'-11px -560px',
+					        		imgPoint:'-59px -533px',
 					        		title:'共享账本',
 					        		deriction:'基于区块链共享账本技术，为商业银行、登记及清算机构、交易所、保险等各类型金融机构提供创新的综合支付清算业务解决方案。'
 					        	},
 					        	{
-					        		imgPoint:' -404px -565px',
+					        		imgPoint:' -428px -536px',
 					        		title:'智能合约',
 					        		deriction:'基于超级账本(hyperledger)、以太坊（Ethereum）智能合约的编写，可应用于贸易款项交割、航空延误险、自行车租赁、房屋共享等合同自动执行的场景。'
 					        	},
 					        	{
-					        		imgPoint:'-11px -1044px',
+					        		imgPoint:'-54px -1101px',
 					        		title:'分享经济',
 					        		deriction:'基于超级账本(hyperledger)的区块链可信网络互助服务，可以为用户加入互助平台的真实性、用户身份认证真实性、互助事件发生的真实性等各个环节提供真实性证明。'
 					        	},
 					        	{
-					        		imgPoint:'-397px -1046px',
+					        		imgPoint:'-427px -1089px',
 					        		title:'防伪溯源',
 					        		deriction:'区块链技术结合防伪标签和物联网设备，能够防止人为因素造成的数据源造假，确保产品信息真实唯一，可溯源，防篡改，实时监控审核商品身份、商品动态、商品流向。'
 					        	},
 					        	{
-					        		imgPoint:'-15px -1533px',
+					        		imgPoint:'-58px -1633px',
 					        		title:'信息安全',
 					        		deriction:'提供弹性、易用、安全、智能的企业信息安全防御体系，从网络层，系统层，应用层，数据层和业务层进行全方位保障。'
 					        	},
 					        	{
-					        		imgPoint:'-394px -1533px',
+					        		imgPoint:'-429px -1637px',
 					        		title:'区块链游戏',
 					        		deriction:'基于以太坊（Ethereum）DAPP智能合约的区块链游戏，可应用于区块链菠菜类、站岗类、棋牌类、宠物养成、加密名人、加密资产等区块链游戏场景。'
 					        	},
 					        	{
-					        		imgPoint:'-4px -1999px',
+					        		imgPoint:'-55px -2183px',
 					        		title:'区块链商城',
 					        		deriction:'基于超级账本(hyperledger)、以太坊（Ethereum）的区块链技术，打造去中心化电商生态体系，通过打通数字资产与实体商业的价值对接，实现商业服务的区块链转型。'
 					        	},
 					        	{
-					        		imgPoint:'-387px -2011px',
+					        		imgPoint:'-438px -2184px',
 					        		title:'数字钱包',
 					        		deriction:'基于主流链上数据的多币种钱包体系，安全便捷高效的数字资产管理，灵活的商业应用方式助您快速落地数字资产。可独立应用运行，也可集成于传统互联网项目中。'
 					        	},
 					        	{
-					        		imgPoint:'-15px -2481px',
+					        		imgPoint:'-60px -2723px',
 					        		title:'交易系统',
 					        		deriction:'基于区块链技术的多种模式交易系统，包含币币交易、场外OTC交易、场内C2C交易、商城交易、交易即挖矿交易等模式。'
 					        	},
 					        	{
-					        		imgPoint:'-395px -2487px',
+					        		imgPoint:'-437px -2726px',
 					        		title:'区块链行情分析',
 					        		deriction:'基于数据抓取与二次加工清洗形成的区块链大数据行情平台。其数据可应用于区块链行情门户网站、区块链行情快报机器人、区块链资讯媒体网站。'
 					        	},
@@ -1013,6 +1014,7 @@
 	}
 
 	.Topwarper{
+		position: relative;
 		height: 679px;
 		background: url('/pc/img/indexbg.png') no-repeat,-webkit-linear-gradient(left, #1e224f,#3e3076);
 		background-repeat: no-repeat;
