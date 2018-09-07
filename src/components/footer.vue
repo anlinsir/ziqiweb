@@ -2,7 +2,7 @@
 	<div class="FooterWarp rb Warper">
 		<div class="footer bb rb warp">
 			<div class="shadowText  " style="margin-top:30px;">
-				<p style="color:rgba(228,228,242,0.4);" class="back">合作伙伴</p>
+				<p style="color:rgba(228,228,242,0.1);" class="back">合作伙伴</p>
 				<p class="forword white ">合作伙伴</p>
 			</div>
 
@@ -10,13 +10,15 @@
 
 			<div class="lh rb imgs">
 				<dl class="flex">
-					<dt>
-						<img src="/static/img/footerLogo.png">
+					<dt style="position:relative">
+						<img src="/pc/img/footerLogo.png">
+						<img style="width:14px;height:14px;position:absolute;right: -60px;top: 20px;" src="/pc/img/close.png" >
 					</dt>
 					<dd class="flex"> 
 						<!--   -->
-						<span  class="rb lh" :style="{backgroundPosition:ii.imgp,marginBottom:id > 3 ? '30px' :''}" v-for="(ii,id) in [{imgp:'0px 0px'},{imgp:'-231px -2px'},{imgp:'-463px -4px'},{imgp:'-695px -4px'},{imgp:'-0px -95px'},{imgp:'-231px -95px'},{imgp:'-463px -95px'},{imgp:'-695px -95px'}]">
-							x
+						<span  class="rb lh" :style="{backgroundPosition:ii.imgp,marginBottom:id > 3 ? '30px' :''}" v-for="(ii,id) in 
+						[{imgp:'-6px -12px',href:'https://aws.amazon.com/cn/?nc2=h_lg'},{imgp:'-234px -4px',href:'https://soduoduo.com/'},{imgp:'-463px -4px',href:'https://www.8btc.com/'},{imgp:'-695px -4px',href:'https://www.jinse.com/'},{imgp:'-0px -95px',href:'https://www.hbg.com/zh-cn/'},{imgp:'-231px -95px',href:'https://www.aliyun.com/?utm_content=se_1000301881'},{imgp:'-463px -95px',href:'https://www.okcoin.com/'},{imgp:'-705px -91px',href:'http://www.linkedin.com/company/kybernetwork/'}]">
+							<a :href="ii.href" target='_blank' :title="ii.href"></a>
 						</span>
 					</dd>
 				</dl>
@@ -85,12 +87,18 @@
 							margin-right: 0px;
 						}
 						>span{
-							background-image: url('/static/img/footerImgs.png');
+							background-image: url('/pc/img/footerImgs.png');
 							width: 144px;
 							height: 60px;
 							margin-right: 50px;
 							margin-bottom: 40px;
 							background-repeat: no-repeat;
+							>a{
+								display: inline-block;
+								width: 100%;
+								height: 100%;
+
+							}
 
 						}
 					}

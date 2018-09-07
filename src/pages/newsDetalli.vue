@@ -1,59 +1,43 @@
 <template>
-	<div class="Warper rb">
+	<div class="Warper rb" >
 		<Header />	
-		<div class="Topwarper">
+		<div v-show='loading' class="loading" :style="{height:fullHeight + 'px'}">
+ 			<div class="sk-wave">
+		        <div class="sk-rect sk-rect1"></div>
+		        <div class="sk-rect sk-rect2"></div>
+		        <div class="sk-rect sk-rect3"></div>
+		        <div class="sk-rect sk-rect4"></div>
+		        <div class="sk-rect sk-rect5"></div>
+		      </div>
+ 		</div>
+		<div class="Topwarper" v-for="(ii,id ) in data">
  			<div class="Topwarp mw rb color">
  				<div class="shadowText color">
 					<p class="back">最新资讯</p>
-					<p class="forword">为什么要用区块链代替数据库？</p>
-					<p class="subtext"><span>2018-03-02</span> &nbsp;&nbsp; | &nbsp;&nbsp; <span>子奇科技</span></p>
+					<p class="forword">{{ii.title}}</p>
+					<p class="subtext"><span>{{ii.created_at}}</span> &nbsp;&nbsp; | &nbsp;&nbsp; <span>{{ii.author}}</span></p>
 				</div>
  			</div>
  		</div>
 
- 		<div class="articleWarp  Warper">
+ 		<div class="articleWarp  Warper" v-for="(ii,id ) in data">
 			<div class="articlewarp warp rb">
 				<div class="article rb">
 		 			<div class="float bb rb">
 		 				<span @click='returnNews' class="close pointer">
-		 					<img src="/static/img/close.png" alt="">
+		 					<img src="/pc/img/close.png" alt="">
 		 				</span>
-		 				<img src="/static/img/pic5.png" >
-		 				<div class="contentText">
-		 					我看到初入该领域的投资新手总是在询问这些问题，不管是针对具体项目，还是作为一般问题。因此我就想我要尝试着写一个关于代币应用以及使用区块链的合理性的详细而又基础的解释。
-
-							基本上，区块链体现了很多博弈论以及激励模型。为了让区块链网络变得有价值或者说让它变得有用，网络中必须有参与者，如果只有我和你使用比特币的话，那么比特币网络毫无价值，因为没有太多实用性的贫瘠的网络中不存在太大的价值。
-
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。 <br>
-							我看到初入该领域的投资新手总是在询问这些问题，不管是针对具体项目，还是作为一般问题。因此我就想我要尝试着写一个关于代币应用以及使用区块链的合理性的详细而又基础的解释。
-
-							基本上，区块链体现了很多博弈论以及激励模型。为了让区块链网络变得有价值或者说让它变得有用，网络中必须有参与者，如果只有我和你使用比特币的话，那么比特币网络毫无价值，因为没有太多实用性的贫瘠的网络中不存在太大的价值。
-
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。
-							我看到初入该领域的投资新手总是在询问这些问题，不管是针对具体项目，还是作为一般问题。因此我就想我要尝试着写一个关于代币应用以及使用区块链的合理性的详细而又基础的解释。
-
-							基本上，区块链体现了很多博弈论以及激励模型。为了让区块链网络变得有价值或者说让它变得有用，网络中必须有参与者，如果只有我和你使用比特币的话，那么比特币网络毫无价值，因为没有太多实用性的贫瘠的网络中不存在太大的价值。
-
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。
-							我看到初入该领域的投资新手总是在询问这些问题，不管是针对具体项目，还是作为一般问题。因此我就想我要尝试着写一个关于代币应用以及使用区块链的合理性的详细而又基础的解释。
-
-							基本上，区块链体现了很多博弈论以及激励模型。为了让区块链网络变得有价值或者说让它变得有用，网络中必须有参与者，如果只有我和你使用比特币的话，那么比特币网络毫无价值，因为没有太多实用性的贫瘠的网络中不存在太大的价值。
-
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。
-							我看到初入该领域的投资新手总是在询问这些问题，不管是针对具体项目，还是作为一般问题。因此我就想我要尝试着写一个关于代币应用以及使用区块链的合理性的详细而又基础的解释。
-
-							基本上，区块链体现了很多博弈论以及激励模型。为了让区块链网络变得有价值或者说让它变得有用，网络中必须有参与者，如果只有我和你使用比特币的话，那么比特币网络毫无价值，因为没有太多实用性的贫瘠的网络中不存在太大的价值。
-
-							为了招揽参与者，网络中需要有一些用来吸引他们的激励措施，最常见的方法就是通过发行或者奖励给予参与者网络中使用的代币，参与者越多的话，其（代币）分散程度就越高。
+		 				
+		 				<div class="contentText" v-html='ii.content' v-highlight>
+		 					
 		 				</div>
 
 		 				<div class="switchPage rb">
-		 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == 0' class="Left  bb  rb grey">← 上一篇 已经是第一篇文章</div>
-		 					<div  @click="changePage(0)"  v-show='pageNum != 0' class="Left  bb  rb  white">← 上一篇 在区块链上建立可更新的智慧合约 </div>
+		 					<div style="color:rgba(124,124,124,1);" v-show='!last' class="Left  bb  rb grey">← 上一篇 已经是第一篇文章</div>
+		 					<div  @click="changePage(0)"  v-show='last' class="Left  bb  rb  white">← 上一篇 {{last ? last.title : '已经是第一篇文章'}} </div>
 
-		 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == totlesNum - 1' class="Right bb  rb grey">已经是最后一篇文章 下一篇  →</div>
-		 					<div @click="changePage(1)"  v-show='pageNum != totlesNum -1 ' class="Right white  bb rb ">运行在区块链上的交易所 下一篇 →  →</div>
+		 					<div style="color:rgba(124,124,124,1);" v-show='!next' class="Right bb  rb grey">已经是最后一篇文章 下一篇  →</div>
+		 					<div @click="changePage(1)"  v-show='next' class="Right white  bb rb ">{{next ? next.title : '已经是最后一篇文章'}} 下一篇 →</div>
 
 		 				</div>
 		 			</div>
@@ -78,12 +62,17 @@
 
 <script>
 	import Header from '../components/header'
-
+	import axios from 'axios'
 	export default{
 		data(){
 			return({
 				pageNum:0,//第几页
-				totlesNum:3,//总共几页
+				totlesNum:3,//总共几页,
+				data:null,
+				last:'',
+				next:'',
+				fullHeight:'',
+				loading:true,
 			})
 		},
 		methods:{
@@ -92,17 +81,102 @@
 			},
 			changePage(type){//切换文章
 				if(type == 0){
-					this.pageNum --
+					this.$router.push(`/newsDealis/${this.last.id}`)
+					// axios.get(`${href}/api/post/${this.last.id}`)
+					// 	.then(r=>{
+					// 		console.log(r.data)
+					// 		this.data = [r.data.data]
+					// 		this.last = r.data.last
+					// 		this.next = r.data.next
+					// 		document.documentElement.scrollTop = 0
+	  		// 				document.body.scrollTop = 0
+					// 	})
 				}else{
-					this.pageNum ++
+					this.$router.push(`/newsDealis/${this.next.id}`)
+
+					// axios.get(`${href}/api/post/${this.next.id}`)
+					// 	.then(r=>{
+					// 		console.log(r.data)
+					// 		this.data = [r.data.data]
+					// 		this.last = r.data.last
+					// 		this.next = r.data.next
+					// 		document.documentElement.scrollTop = 0
+	  		// 				document.body.scrollTop = 0
+					// 	})
 				}
 			}
 		},
 		components:{
 			Header
 		},
+		watch:{
+			'$route'(){
+
+				this.fullHeight = document.documentElement.clientHeight
+			  	window.onresize = ()=>{
+			  		this.fullHeight = document.documentElement.clientHeight
+			  	}
+			  	this.loading = true
+
+				axios.get(`${href}/api/post/${this.$route.params.id}`)
+					.then(r=>{
+						this.loading = false
+						document.documentElement.scrollTop = 0
+	  					document.body.scrollTop = 0
+						this.data = [r.data.data]
+						this.last = r.data.last
+						this.next = r.data.next
+						setTimeout(()=>{
+						var aaa = document.getElementsByTagName('img')
+							for(var i in aaa){
+								if(aaa[i].className != 'nones'){
+									aaa[i].style.maxWidth = '100%'
+								}
+							}
+						},1000)
+
+				})
+			}
+		},
+		created(){
+		  	// if(!localStorage.loadingss || localStorage.loadingss != 1 ){
+		  	// 	this.loading = true
+		  	// }else{
+		  	// 	this.loading = false
+		  	// }
+		  },
 		mounted(){
-			console.log(document.getElementsByClassName('float')[0].style)
+
+			// setTimeout(()=>{
+		 //  		this.loading = false
+		 //  		localStorage.loadingss = 1
+		 //  	},2000)
+			this.fullHeight = document.documentElement.clientHeight
+		  	window.onresize = ()=>{
+		  		this.fullHeight = document.documentElement.clientHeight
+		  	}
+
+			setTimeout(()=>{
+				this.loading = false
+				var aaa = document.getElementsByTagName('img')
+					for(var i in aaa){
+						if(aaa[i].className != 'nones'){
+							aaa[i].style.maxWidth = '100%'
+						}
+					}
+				},1000)
+					document.documentElement.scrollTop = 0
+	  				document.body.scrollTop = 0
+			// console.log(document.getElementsByClassName('float')[0].style)
+			axios.get(`${href}/api/post/${this.$route.params.id}`)
+				.then(r=>{
+					this.data = [r.data.data]
+					this.last = r.data.last
+					this.next = r.data.next
+
+			})
+
+
 		}
 	}
 
@@ -110,11 +184,65 @@
 
 
 <style scoped lang="scss">
+.loading{
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    justify-content: center;
+	.sk-wave {
+  margin: 40px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px; }
+  .sk-wave .sk-rect {
+    background-color: #1F2351;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+            animation: sk-waveStretchDelay 1.2s infinite ease-in-out; }
+  .sk-wave .sk-rect1 {
+    -webkit-animation-delay: -1.2s;
+            animation-delay: -1.2s; }
+  .sk-wave .sk-rect2 {
+    -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s; }
+  .sk-wave .sk-rect3 {
+    -webkit-animation-delay: -1s;
+            animation-delay: -1s; }
+  .sk-wave .sk-rect4 {
+    -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s; }
+  .sk-wave .sk-rect5 {
+    -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s; }
+	@-webkit-keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
+	@keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
+}
 	
 	.Warper{
 		.Topwarper{
 			height: 436px;
-			background-image: url('/static/img/otherBg.png');
+			background-image: url('/pc/img/otherBg.png');
 			background-repeat: no-repeat;
 			background-position: center; 
 			>.Topwarp{
@@ -162,14 +290,14 @@
 				margin-bottom: 100px;
 				>.article{
 					width: 100%;
-					min-height: 1000px;
+					min-height: 500px;
 					position: relative;
 					>.float{
-						min-height: 1000px;
+						min-height: 500px;
 						width: 100%;
 						top:-150px;
 						padding: 43px 47px 0;
-						min-height: 1000px;
+						min-height: 500px;
 						background-color: #fff;
 						margin-bottom: 88px;
 						border-radius:10px;
@@ -192,11 +320,15 @@
 							margin-bottom: 66px;
 						}
 						>.contentText{
+							min-height: 1000px;
 							font-size:16px;
 							font-family:MicrosoftYaHei;
 							font-weight:400;
 							color:rgba(51,51,51,1);
 							line-height:36px;
+							>img{
+								width: 100%;
+							}
 						}
 						.switchPage{
 							width: 100%;

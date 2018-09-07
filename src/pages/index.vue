@@ -2,45 +2,73 @@
  	<div class="Warper">
  		<Header />
 
- 		<div @click.self='displayBlockShow = !displayBlockShow' v-show='displayBlockShow' class="displayBlock" :style="{height:fullHeight + 'px'}">
- 			<span @click='displayBlockShow = !displayBlockShow' class="lh outside close pointer "><img src="/static/img/close.png" ></span>
+ 		<div v-if='loading' class="loading" :style="{height:fullHeight + 'px'}">
+ 			<div class="sk-wave">
+		        <div class="sk-rect sk-rect1"></div>
+		        <div class="sk-rect sk-rect2"></div>
+		        <div class="sk-rect sk-rect3"></div>
+		        <div class="sk-rect sk-rect4"></div>
+		        <div class="sk-rect sk-rect5"></div>
+		      </div>
+ 		</div>
+
+
+
+ 		<div v-for="(ii,id) in zhezhao" @click.self='closeZhezhao()' v-show='displayBlockShow' class="displayBlock" :style="{height:fullHeight + 'px'}">
+ 			<div class="sk-wave">
+		        <div class="sk-rect sk-rect1"></div>
+		        <div class="sk-rect sk-rect2"></div>
+		        <div class="sk-rect sk-rect3"></div>
+		        <div class="sk-rect sk-rect4"></div>
+		        <div class="sk-rect sk-rect5"></div>
+		      </div>
+ 			<span @click='closeZhezhao' class="lh outside close pointer "><img src="/pc/img/close.png" ></span>
 
  			 <transition
 			    name="custom-classes-transition"
-			    enter-active-class="animated flipInY"
-			    leave-active-class="animated flipOutY"
+			    enter-active-class="animated fadeIn"
+			    leave-active-class="animated fadeOut"
 			  >
 	 			<div v-show='displayBlockShowSub' class="subDisplayBlock">
-		 			<span @click='turnLeft' class="lh outside leftarr pointer "><img src="/static/img/left.png" ></span>
+		 			<span v-show='some > 0 ' @click='turnLeft' class="lh outside leftarr pointer "><img src="/pc/img/left.png" ></span>
 
-		 			<span class="lh outside rightarr pointer "><img src="/static/img/right.png" ></span>
+		 			<span v-show='some >= 0 && some < anliLIst.length-1 ' @click='turnRight' class="lh outside rightarr pointer "><img src="/pc/img/right.png" ></span>
 
 	 				<div class="Toparea bb">
 	 					<dl class="flex">
 	 						<dt>
-	 							<img src="/static/img/indexlogo.png" >
+	 							<img v-if='ii.icon' :src="ii.icon" >
 	 						</dt>
 	 						<dd>
-	 							<p class="tit fz18 fwb">搜多多 </p>
-	 							<p class="dir fz14">数字资产行情</p>
+	 							<p class="tit fz18 fwb">{{ii.name}} </p>
+	 							<p class="dir fz14">{{ii.tiny_info}}</p>
 
 	 						</dd>
 	 					</dl>
 
 	 					<div class="btnGroup Right">
 	 						<button @click="backLeft = backLeft == '0px' ? '-85px' : '0px' " :style="{backgroundColor:backLeft == '0px' ? '' : '#f6f6f6' }" class="Show">APP下载</button>
-	 						<button :style="{left:backLeft}" class="back"></button>
-	 						<button>官网链接</button>
+
+	 						<button :style="{left:backLeft}" class="back">
+	 								<span class="lh" style="width:20px;height:20px;translateX(-18px) translateY(3px)" @click="and(ii.android_app)"></span>
+	 								<span class="lh" style="width:20px;height:20px;translateX(4px) translateY(3px);" @click="ios(ii.ios_app)" ></span>
+
+	 						</button>
+
+
+	 						<button>
+	 							<span @click="websit(ii.website)">官网链接</span>
+	 						</button>
 	 					</div>
 	 				</div>
 
 	 				<div class="BigImg rb">
-	 					<img src="/static/img/pic1.png">
+	 					<img :src="bigIMGSHow" v-if='bigIMGSHow'>
 	 				</div>
 	 				<div class="subImgsChoose bb">
 	 					<ul class="flex">
-	 						<li class="rb" v-for="(ii,id) in ['/static/img/pic2.png','/static/img/pic3.png','/static/img/pic4.png']">
-	 							<img :src="ii" alt="">
+	 						<li class="rb" v-for="(i,d) in ii.images">
+	 							<img @click='bigIMGSHow = i' :src="i" alt="">
 	 						</li>
 	 					</ul>
 	 				</div>
@@ -51,10 +79,10 @@
 
 
  		<ul class="aside">
- 			<li @click="AisdeClick(id)" :style="{backgroundPosition:ii.imgP ,backgroundColor:id == 0 ? 'rgba(255,255,255)' : 'rgba(82,62,162,1)' }" class=" pointer" v-for="(ii,id) in [{imgP:'center 15px'},{imgP:'center -37px'},{imgP:'center -89px'}]">
+ 			<li @click="AisdeClick(id)" :style="{backgroundPosition:ii.imgP ,backgroundColor:id == 0 ? 'rgba(255,255,255)' : 'rgba(82,62,162,1)' }" class=" pointer" v-for="(ii,id) in [{imgP:'center 13px'},{imgP:'center -37px'},{imgP:'center -89px'}]">
 
  				<span class="bb" v-if='id == 1'>
- 					<img src="">
+ 					<img src="/pc/img/ercode.png">
  					<span class="fz12 center lh">关注微信公众号</span>
  				</span>
  			</li>
@@ -73,95 +101,95 @@
  		
 		<div class="section1Warper  Warper">
 			<div class="section1 warp rb">
-				<ul class="flexB">
+				<ul style="margin-left:20px" class="flexB">
 
 				  
-					<li class="pl">
+					<li class="pl" style="margin-right:0;">
 
 						<div class="shadowText color">
-							<p class="back">服务技术</p>
-							<p class="forword">服务技术</p>
+							<p style="bottom:-6px;" class="back">技术方案</p>
+							<p class="forword">技术方案</p>
 
 						</div>
 						<p class="fz18 white">
-							时代前沿的区块链 <br>
-							技术服务内容
+							企业级区块链方案 <br>
+							及行业场景
 						</p>
 
 						<!-- <div class="seversChose">
 							<span @click="switcher(id)" :class="section1ShowSub == id ? 'section1ShowSub lh pointer center' : 'lh pointer center' " class="lh pointer center" v-for="(ii,id) in 4">{{id + 1}}</span>
 						</div> -->
-						<div style="margin-top: 89px;" class="swiper-pagination"></div>
+						<div style="margin-top: 89px;" id='pages' class="swiper-pagination"></div>
 
 					</li>
 					<!-- 选择板块 -->
-					<div class="swiper-container" id='sb'>
+					<div style="height:505px;transform: translateX(-40px);" class="swiper-container" id='sb'>
 					    <div class="swiper-wrapper">
-					        <li class="swiper-slide center" v-for="(ii,id) in [
+					        <li style="margin-right:40px;" class="swiper-slide center" v-for="(ii,id) in [
 					        	{
 					        		imgPoint:'-11px -86px',
-					        		title:'根链平台及以太坊智能合约',
-					        		deriction:'实施智能合约以让合约在根链平台及以太坊自动执行。我们可以从定义开始为您撰写智能合约代码。'
+					        		title:'数字资产',
+					        		deriction:'基于区块链平台提供票据的资产化数字能力（发行、转让、贴现、兑付等），可应用于数字票据、共享积分、优惠券、数字TOKEN、股权登记等业务场景。'
 					        	},
 					        	{
 					        		imgPoint:'-395px -86px',
-					        		title:'区块链技术',
-					        		deriction:'使用基于密码的技术来储存不可变数据。我们可以帮助您选择适合此技术的程序。'
+					        		title:'鉴证证明',
+					        		deriction:'基于超级账本(hyperledger)搭建区块链鉴证证明服务平台，可应用于知识产权、保单保全、公益捐赠、个人和企业资质证明等业务场景。'
 					        	},
 					        	{
 					        		imgPoint:'-11px -560px',
-					        		title:'智能合约审计',
-					        		deriction:'在您将智能合同部署到区块链时，安全缺陷、不当行为和效率低下会带来高昂的代价。我们帮助公司写出可靠的智能合约代码。'
+					        		title:'共享账本',
+					        		deriction:'基于区块链共享账本技术，为商业银行、登记及清算机构、交易所、保险等各类型金融机构提供创新的综合支付清算业务解决方案。'
 					        	},
 					        	{
 					        		imgPoint:' -404px -565px',
-					        		title:'超级账本',
-					        		deriction:'金融、保健、零售、制造等区块链发展。'
+					        		title:'智能合约',
+					        		deriction:'基于超级账本(hyperledger)、以太坊（Ethereum）智能合约的编写，可应用于贸易款项交割、航空延误险、自行车租赁、房屋共享等合同自动执行的场景。'
 					        	},
 					        	{
 					        		imgPoint:'-11px -1044px',
-					        		title:'私人区块链',
-					        		deriction:'在您的机构或公司实施私人区块链。'
+					        		title:'分享经济',
+					        		deriction:'基于超级账本(hyperledger)的区块链可信网络互助服务，可以为用户加入互助平台的真实性、用户身份认证真实性、互助事件发生的真实性等各个环节提供真实性证明。'
 					        	},
 					        	{
 					        		imgPoint:'-397px -1046px',
-					        		title:'货币兑换',
-					        		deriction:'开发安全可靠的加密货币兑换。'
+					        		title:'防伪溯源',
+					        		deriction:'区块链技术结合防伪标签和物联网设备，能够防止人为因素造成的数据源造假，确保产品信息真实唯一，可溯源，防篡改，实时监控审核商品身份、商品动态、商品流向。'
 					        	},
 					        	{
 					        		imgPoint:'-15px -1533px',
-					        		title:'付款网关',
-					        		deriction:'接受加密货币并即时将之转换为您的优选货币或将之存至您的钱包。'
+					        		title:'信息安全',
+					        		deriction:'提供弹性、易用、安全、智能的企业信息安全防御体系，从网络层，系统层，应用层，数据层和业务层进行全方位保障。'
 					        	},
 					        	{
 					        		imgPoint:'-394px -1533px',
-					        		title:'钱包',
-					        		deriction:'保护传统钱包和多重签名钱包以确保安全。'
+					        		title:'区块链游戏',
+					        		deriction:'基于以太坊（Ethereum）DAPP智能合约的区块链游戏，可应用于区块链菠菜类、站岗类、棋牌类、宠物养成、加密名人、加密资产等区块链游戏场景。'
 					        	},
 					        	{
 					        		imgPoint:'-4px -1999px',
-					        		title:'履约保证',
-					        		deriction:'在满足特定条件时释放加密货币付款。'
+					        		title:'区块链商城',
+					        		deriction:'基于超级账本(hyperledger)、以太坊（Ethereum）的区块链技术，打造去中心化电商生态体系，通过打通数字资产与实体商业的价值对接，实现商业服务的区块链转型。'
 					        	},
 					        	{
 					        		imgPoint:'-387px -2011px',
-					        		title:'众筹',
-					        		deriction:'允许个人和组织接受全世界对其项目的投入或投资。'
+					        		title:'数字钱包',
+					        		deriction:'基于主流链上数据的多币种钱包体系，安全便捷高效的数字资产管理，灵活的商业应用方式助您快速落地数字资产。可独立应用运行，也可集成于传统互联网项目中。'
 					        	},
 					        	{
 					        		imgPoint:'-15px -2481px',
-					        		title:'训练',
-					        		deriction:'教您的团队理解区块链技术并为接下来的动作作准备。'
+					        		title:'交易系统',
+					        		deriction:'基于区块链技术的多种模式交易系统，包含币币交易、场外OTC交易、场内C2C交易、商城交易、交易即挖矿交易等模式。'
 					        	},
 					        	{
 					        		imgPoint:'-395px -2487px',
-					        		title:'匿名化',
-					        		deriction:'使用额外匿名化措施，如混币，以保障隐私。'
+					        		title:'区块链行情分析',
+					        		deriction:'基于数据抓取与二次加工清洗形成的区块链大数据行情平台。其数据可应用于区块链行情门户网站、区块链行情快报机器人、区块链资讯媒体网站。'
 					        	},
 					        ]">
 								<p class="img"  style="height: 217px;" :style="{backgroundPosition:ii.imgPoint}"></p>
 								<p class="fwb fz18 center white" style="margin-bottom:40px;">{{ii.title}}</p>
-								<p class="w266 white fz14 lh ">
+								<p style="text-align:left;" class="w266 white fz14 lh ">
 									{{ii.deriction}}
 								</p>
 							</li>
@@ -218,7 +246,7 @@
  											color:'#3D3075',
  											num:'04',
  											title:'区块链项目投资策略',
- 											content:'全球A级项目投资策略及渠道提供'
+ 											content:'全球A级项目投资策略和渠道提供，提供全方位风控保障。'
  										},
  								]">
  								<div class="left Left">
@@ -246,19 +274,20 @@
 				</div>
 
 				<ul class="flexB">
-					<swiper :options="swiperOption" ref="mySwiper">
-					<swiper-slide class="li" v-for='(i,d) in 8' >
-						<div @click="showDislpay" class="hover transition">
+					<swiper style='width:100%;height: 417px;' :options="swiperOption" ref="mySwiper">
+					<swiper-slide :style="{backgroundImage:`url(${i.images[0]})`}" style='    background-size: 100% 100%;margin-top: 30px;' class="li" v-for='(i,d) in anliLIst' >
+						<div @click="showDislpay(d)" class="hover transition">
 							<div class="bottom bb">
-								<p class="white name ">搜多多SOUDUODUO</p>
-								<p class="fz16 white ">数字资产行情</p>
-								<img class="Right box" src="/static/img/button.png" alt="">
+								<p class="white name ">{{i.name}}</p>
+								<p class="fz16 white ">{{i.tiny_info}}</p>
+								<img class="Right box" src="/pc/img/button.png" alt="">
 							</div>
 						</div>
 					</swiper-slide>
 					</swiper>
 					<!-- <div class="swiper-pagination swiper-paginationsss"  slot="pagination"></div> -->
 				</ul>
+				 <div class="swiper-pagination" id='topage' style="text-align:center;width:1100px;"  slot="pagination" ></div>
 
 
 
@@ -273,15 +302,15 @@
 				</div>
 
 				<ul class="flexB">
-					<li class="rb bb white">
-						<p class="title fz18 fwb">如何扩展以太坊：分片原理解释</p>
+					<li  class="rb bb white" v-for="(ii,id ) in  newList">
+						<p class="title fz18 fwb">{{ii.title}}</p>
 						<p class="content fz14">
-							<span class="lh">首先让我们看看分片系统的结构。首先，在特定分片上被称为校对器（Collator）的节点的任务是创建校对块（Collation），校对块是一种包含关于所涉及分片的重要信息的特定结构。</span>
-							<span >超级节点将把所有分片中的校对块放到以太坊区块链中将要添加的区块中。通过汇总他们的校验头来维护所有分片的状态。 </span>
+							<span class="lh" v-html='ii.tiny_content'></span>
+							<!-- <span >超级节点将把所有分片中的校对块放到以太坊区块链中将要添加的区块中。通过汇总他们的校验头来维护所有分片的状态。 </span> -->
 						</p>
-						<p class="seeAll fz14">阅读全文 ></p>
+						<p @click="todetai(ii.id)" class="seeAll fz14">阅读全文 ></p>
 					</li>
-					<li class="rb bb white">
+					<!-- <li class="rb bb white">
 						<p class="title fz18 fwb">智能合约灵活升级</p>
 						<p class="content fz14">
 							<span class="lh">以太坊智能合约具有很强的不变性，使得我们能够构建完全防篡改的应用程序，任何个人、公司或政府都不能篡改数据（信息）。每个参与者都遵循相同的规则，并且这些规则永远都不会改变。</span>
@@ -297,11 +326,11 @@
 						</p>
 						<p class="seeAll fz14 ">阅读全文 ></p>
 					</li>
-
+ -->
 				</ul>
 
 				<div class="none center">
-					<button class="fz18 white pointer">更多资讯</button>
+					<button class="fz18 white pointer" @click='toNews'>更多资讯</button>
 				</div>
 
 
@@ -325,7 +354,7 @@
 						<li  :style="{left:left}" class="line transition"></li>
 					</ul>
 
-					<div class="loaction">
+					<div class="loaction"  v-show='cityChoose == 0'>
 						<p class="fwb fz16">成都子奇科技有限公司 总部</p>
 						<p class="loactionInfo">
 							<span>地址: 四川成都市高新区天府大道天华路天府软件园B区3栋4F-V06</span><br>
@@ -335,8 +364,36 @@
 						</p>
 					</div>
 
+					<div class="loaction"  v-show='cityChoose == 1'>
+						<p class="fwb fz16">成都子奇科技有限公司瑞典办事处</p>
+						<p class="loactionInfo">
+							<span>地址: Emmylundsvägen 1, 17172, Stockholm, Sweden</span><br>
+							<span>电话: 400-0288-767</span><br>
+							<span>手机: +0046-0760706468</span><br>
+							<span>邮箱: sikewan1993@gmail.com</span>
+						</p>
+					</div>
+
+					<div class="loaction"  v-show='cityChoose == 2'>
+						<p class="fwb fz16">成都子奇科技有限公司日本办事处</p>
+						<p class="loactionInfo">
+							<span>地址: 〒東京都豊島区池袋4-32-10ミニービル</span><br>
+							<span>电话: 400-0288-767</span><br>
+							<span>手机: +080-45788999</span><br>
+							<span>邮箱: enbobobo@gmail.com</span>
+						</p>
+					</div>
+
 					<div class="map rb">
-						<div id="container" style="width:100%; height:100%"></div>
+						<div v-show='cityChoose == 0' id="container" style="    width: 471px;
+   				 height: 358px;"></div>
+						<div v-show='cityChoose == 1'  style="width: 471px;height: 358px;">
+							<img src="/pc/img/google_swe.png" alt=""  style="width: 471px;height: 358px;">
+						</div>
+						<div v-show='cityChoose == 2'  style="width: 471px;height: 358px;">
+							<img src="/pc/img/google_jp.png" alt=""  style="width: 471px;height: 358px;">
+						</div>
+
 					</div>
 
  				</div>
@@ -348,13 +405,13 @@
 					</div>
 
 					<form>
-						<input type="text"   placeholder="成都某某某科技有限公公司" />
-						<input type="text"  placeholder="您的姓名(必填)" />
-						<input type="text"  placeholder="联系电话(必填)" />
-						<input type="text"  placeholder="微信号(必填)" />
-						<input type="text"  placeholder="标题" />
-						<textarea placeholder="咨询内容……"></textarea>
-						<button class="pointer">发 送</button>
+						<input type="text"  v-model='companyName'  placeholder="公司名称" />
+						<input type="text"  v-model='youName' placeholder="您的姓名(必填)" />
+						<input type="text"  v-model='tel' placeholder="联系电话(必填)" />
+						<input type="text" v-model='wechat'  placeholder="微信号(必填)" />
+						<input type="text"  v-model='tiele' placeholder="标题" />
+						<textarea placeholder="咨询内容……" v-model='content'></textarea>
+						<button class="pointer" @click.prevent="send">发 送</button>
 					</form>
 
 
@@ -378,7 +435,7 @@
 	import Footer from '../components/footer'
 	import { swiper, swiperSlide } from 'vue-awesome-swiper'
 	import { lazyAMapApiLoaderInstance } from 'vue-amap';
-	 
+	import axios from 'axios'
 	export default {
 	  
 	  data () {
@@ -394,6 +451,16 @@
 				spaceBetween: 30,  
 				slidesPerGroup: 2,  
 				loopFillGroupWithBlank: true,//在loop模式下，为group填充空白slide  
+				  pagination: {
+			      el: '#topage',
+			      clickable :true,
+			      loop:true,
+			      bulletActiveClass: 'my-bullet-active',
+			      renderBullet: function (index, className) {
+			          return '<span style="display:inline-block;width:8px;height:8px;margin-right:8px;outline:none;line-height:26px;" class="' + className + ' white  ">' + '</span>';
+			        },
+
+			    },
     	  },
     	  backLeft:'0px',
     	  fullHeight:'',
@@ -401,18 +468,108 @@
     	  displayBlockShowSub:true,
     	  map:'',
     	  marker:'',
+    	  companyName:'',
+	      youName:'',
+			tel:'',
+			wechat:'',
+			tiele:'',
+			content:'',
+			anliLIst:[],
+			bigIMGSHow:'',
+			newList:[],
+			zhezhao:[],
+			some:0,
+			loading:true,
 
 	    }
 	  },
 	  methods:{
-	  	 	
+	  	closeZhezhao(){
+
+	  		this.displayBlockShow = !this.displayBlockShow;
+	  		this.bigIMGSHow = null;
+	  		this.zhezhao = [];
+	  	},
+	  	websit(websit){
+	  		if(!websit){
+	  			alert('暂无官网链接')
+	  			return
+	  		}
+	  		window.open(websit)
+	  	},
+	  	and(ands){
+	  		if(!ands){
+	  			alert('Android端APP 暂未开放下载')
+	  			return
+	  		}
+	  		window.open(ands)
+	  	},
+	  	ios(ios){
+	  		if(!ios){
+	  			alert('IOS端APP 暂未开放下载')
+	  			return
+	  		}
+	  		window.open(ios)
+	  	},
+	  	todetai(id){
+	  		this.$router.push(`/newsDealis/${id}`)
+	  	},
+	  		send(){
+	  			if(!this.youName || !this.tel || !this.wechat || !this.companyName ){
+	  				alert('请保证 必填项已经填写')
+	  				return
+	  			}
+	  			var pro ={
+	  				name:this.youName,
+	  				tel:this.tel,
+	  				email:this.wechat,
+	  				company_name:this.companyName,
+	  				title:this.tiele,
+	  				content:this.content
+	  			}
+	  			axios.post(`${href}/api/msg`,pro)
+	  				.then((r)=>{
+	  					alert(r.data.msg)
+	  				})
+
+	  		},
+	  	 	toNews(){
+	  	 		this.$router.push('/news')
+	  	 	},
 	  		turnLeft(){
 	  			this.displayBlockShowSub = false
+	  			this.bigIMGSHow = null;
+	  			this.zhezhao = [{images:[]}]
+
+
+	  			
 	  			setTimeout(()=>{
+
+	  				this.some = this.some -1
+	  				this.zhezhao = [this.anliLIst[this.some]]
+	  				this.bigIMGSHow = this.zhezhao[0].images[0];
 	  				this.displayBlockShowSub = true
-	  			},2000)
+	  			},1000)
 	  		},
-	  		showDislpay(){//
+	  		turnRight(){
+	  			this.displayBlockShowSub = false
+	  			this.bigIMGSHow = null;
+	  			this.zhezhao = [{images:[]}]
+
+	  			
+	  			setTimeout(()=>{
+	  				this.some = this.some + 1
+	  			this.zhezhao = [this.anliLIst[this.some]]
+	  			this.bigIMGSHow = this.zhezhao[0].images[0];
+	  				this.displayBlockShowSub = true
+	  			},1000)
+	  		},
+	  		showDislpay(id){//
+	  			this.zhezhao = [{images:[]}]
+	  			this.some = id
+	  			this.bigIMGSHow = null;
+	  			this.zhezhao = [this.anliLIst[this.some]]
+	  			this.bigIMGSHow = this.zhezhao[0].images[0];
 	  			this.displayBlockShow = !this.displayBlockShow
 
 	  		},
@@ -426,7 +583,7 @@
 
 	  					break;
 	  				case 2:
-
+	  					window.open('http://wpa.qq.com/msgrd?v=3&uin=1834633402&site=qq&menu=yes');
 	  					break;
 	  			}
 	  		},
@@ -463,7 +620,35 @@
 	  	swiper,
     	swiperSlide
 	  },
+	  created(){
+	  	if(!localStorage.loading || localStorage.loading != 1 ){
+	  		this.loading = true
+	  	}else{
+	  		this.loading = false
+	  	}
+	  },
 	  mounted(){
+	  	setTimeout(()=>{
+	  		this.loading = false
+	  		localStorage.loading = 1
+	  	},2000)
+	  	axios.get(`${href}/api/project?&page=1&limit=10`)
+  		.then(r=>{
+  			this.anliLIst = r.data.list
+  			// this.zhezhao = [this.anliLIst[this.some]]
+
+  		})
+
+
+	  		axios.get(`${href}/api/post?&page=1&limit=3`)
+				.then(r=>{
+					this.newList = r.data.list
+
+					
+			})
+
+
+
 	  	this.fullHeight = document.documentElement.clientHeight
 	  	window.onresize = ()=>{
 	  		this.fullHeight = document.documentElement.clientHeight
@@ -496,9 +681,11 @@
 			   	slidesPerView :2,
 				spaceBetween: 30,  
 				slidesPerGroup: 2,  
+				 autoplay:true,
+				 loop:true,
 				loopFillGroupWithBlank: true,//在loop模式下，为group填充空白slide  
 			   	 pagination: {
-			      el: '.swiper-pagination',
+			      el: '#pages',
 			      clickable :true,
 			      renderBullet: function (index, className) {
 			          return '<span style="display:inline-block;width:26px;height:26px;margin-right:8px;outline:none;line-height:26px;" class="' + className + ' white  ">' + (index + 1) + '</span>';
@@ -515,13 +702,124 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.my-bullet-active{
+	background-color: #4277ff;
+}
+.loading{
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    justify-content: center;
+	
+}
+.sk-wave {
+  margin: 40px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px; }
+  .sk-wave .sk-rect {
+    background-color: #1F2351;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+            animation: sk-waveStretchDelay 1.2s infinite ease-in-out; }
+  .sk-wave .sk-rect1 {
+    -webkit-animation-delay: -1.2s;
+            animation-delay: -1.2s; }
+  .sk-wave .sk-rect2 {
+    -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s; }
+  .sk-wave .sk-rect3 {
+    -webkit-animation-delay: -1s;
+            animation-delay: -1s; }
+  .sk-wave .sk-rect4 {
+    -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s; }
+  .sk-wave .sk-rect5 {
+    -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s; }
+	@-webkit-keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
+	@keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
+
 .displayBlock{
 	position: fixed;
 	width: 100%;
-	z-index: 20;
+	z-index: 180;
 	top:0;
 	overflow: auto;
 	background-color: rgba(0,0,0,.4);
+
+	.sk-wave {
+
+  margin: 40px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+
+  font-size: 10px; 
+  position: absolute;
+		top:0;
+		left: 0;
+		margin: auto;
+		right: 0;
+		bottom:0;
+}
+  .sk-wave .sk-rect {
+    background-color: #fff;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+            animation: sk-waveStretchDelay 1.2s infinite ease-in-out; }
+  .sk-wave .sk-rect1 {
+    -webkit-animation-delay: -1.2s;
+            animation-delay: -1.2s; }
+  .sk-wave .sk-rect2 {
+    -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s; }
+  .sk-wave .sk-rect3 {
+    -webkit-animation-delay: -1s;
+            animation-delay: -1s; }
+  .sk-wave .sk-rect4 {
+    -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s; }
+  .sk-wave .sk-rect5 {
+    -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s; }
+	@-webkit-keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
+	@keyframes sk-waveStretchDelay {
+	  0%, 40%, 100% {
+	    -webkit-transform: scaleY(0.4);
+	            transform: scaleY(0.4); }
+	  20% {
+	    -webkit-transform: scaleY(1);
+	            transform: scaleY(1); } }
 	.outside{
 		position: absolute;
 		color: #fff;
@@ -581,7 +879,7 @@
 					left: 0;
 					z-index: 1;
 					transition:all .5s;
-					background: url('/static/img/android.png') 15px center,url('/static/img/ios.png') 60px center;
+					background: url('/pc/img/android.png') 15px center,url('/pc/img/ios.png') 60px center;
 					background-repeat: no-repeat;
 				}
 				>.Show{
@@ -654,7 +952,7 @@
 			background-color:rgba(82,62,162,1);
 			box-shadow:0px 8px 13px 0px rgba(92,87,132,0.15);
 			position: relative;
-			background-image: url('/static/img/asideImg.png');
+			background-image: url('/pc/img/asideImg.png');
 			background-repeat: no-repeat;
 
 			&:hover{
@@ -716,7 +1014,7 @@
 
 	.Topwarper{
 		height: 679px;
-		background-image: url('/static/img/indexbg.png');
+		background: url('/pc/img/indexbg.png') no-repeat,-webkit-linear-gradient(left, #1e224f,#3e3076);
 		background-repeat: no-repeat;
 		background-position: center; 
 		>.Topwarp{
@@ -764,7 +1062,7 @@
 
 				.swiper-slide,.pl{
 					width:320px !important;
-					height:431px;
+					height:480px;
 					background:#222454;
 					opacity:0.95;
 					border-radius:10px;
@@ -846,6 +1144,7 @@
 	}
 	>.section3Warper{
 		height: 751px;
+		background:rgba(252,252,252,1);
 		>.section3{
 			height: 751px;
 			padding-top: 107px;
@@ -870,8 +1169,11 @@
 					width: 537px;
 					position: relative;
 					overflow: hidden;
-					background-image: url('/static/img/displayLi.png');
+					background-image: url('/pc/img/displayLi.png');
 					background-position: center center;
+					background-repeat: no-repeat;
+					box-shadow:-3px 7px 76px -10px rgba(45, 75, 93,0.4);
+					// background-size: 100% 100%;
 
 					>.hover{
 						position: absolute;
@@ -908,7 +1210,7 @@
 	}
 	>.section4Warper{
 		height: 839px;
-		background-image: url('/static/img/indexSubBg.png');
+		background-image: url('/pc/img/indexSubBg.png');
 		background-repeat: no-repeat;
 		background-position: center;
 		overflow: hidden; 
@@ -1025,7 +1327,7 @@
 				>.loaction{
 					width: 102%;
 					margin-top: 37px;
-					padding-left: 35px;
+					padding-left:17px;
 					margin-bottom: 43px;
 					>.fwb{
 						margin-bottom: 36px;

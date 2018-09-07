@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import AMap from 'vue-amap';
+import hljs from 'highlight.js'
+import 'highlight.js/styles/googlecode.css' //样式文件
+
 Vue.use(AMap);
 
 Vue.use(VueAwesomeSwiper)
@@ -15,6 +18,12 @@ AMap.initAMapApiLoader({
     // 插件集合
     plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType']
 });
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)
+  })
+})
 
 /* eslint-disable no-new */
 new Vue({

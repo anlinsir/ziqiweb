@@ -15,25 +15,25 @@
  			<div class="warp rb">
  				<ul class="flexB">
  					
- 					<li @click="toDealis(id)" class="rb " v-for="(ii,id) in 6">
+ 					<li @click="toDealis(ii.id)" class="rb " v-for="(ii,id) in newList">
  						<div class="top rb">
- 							<img src="/static/img/pic6.png" alt="">
- 							<span class="lh fz12 white center ">2018-03-02</span>
+ 							<img :src="ii.cover_src ? ii.cover_src : '/pc/img/M_pic6.png'" alt="">
+ 							<span class="lh fz12 white center ">{{ii.created_at.slice(0,10)}}</span>
  						</div>
 
  						<div class="bom center">
- 							<p class="title fz18 fwb ">理解权益证明安全模型的原理</p>
+ 							<p class="title fz18 fwb ">{{ii.title}}</p>
  							<button>阅读文章</button>
  						</div>
  					</li>
  				</ul>
 
  				<div class="switchPage rb">
- 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == 0' class="Left  bb  rb grey">← 上一页 </div>
- 					<div  @click="changePage(0)"  v-show='pageNum != 0' class="Left  bb  rb  white">← 上一页 </div>
+ 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == 1' class="Left  bb  rb grey">← 上一页 </div>
+ 					<div  @click="changePage(0)"  v-show='pageNum != 1' class="Left  bb  rb  white">← 上一页 </div>
 
- 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == totlesNum - 1' class="Right bb  rb grey">下一页  →</div>
- 					<div @click="changePage(1)"  v-show='pageNum != totlesNum -1 ' class="Right white  bb rb ">下一页  →</div>
+ 					<div style="color:rgba(124,124,124,1);" v-show='pageNum == totlesNum ' class="Right bb  rb grey">下一页  →</div>
+ 					<div @click="changePage(1)"  v-show='pageNum != totlesNum  ' class="Right white  bb rb ">下一页  →</div>
 
  				</div>
  			</div>
@@ -52,12 +52,13 @@
 
 <script>
 	import Header from '../components/header'
-
+	import axios from 'axios'
 	export default{
 		data(){
 			return({
 				pageNum:0,//第几页
 				totlesNum:3,//总共几页
+				newList:[]
 			})
 		},
 		methods:{
@@ -68,13 +69,41 @@
 			changePage(type){
 				if(type == 0){
 					this.pageNum --
+					axios.get(`${href}/api/post?&page=${Number(this.pageNum)}&limit=6`)
+						.then(r=>{
+							this.newList = r.data.list
+							this.totlesNum = Math.ceil(r.data.count/6)	
+							this.pageNum =r.data.current
+							document.documentElement.scrollTop = 0
+	  						document.body.scrollTop = 0
+						})
 				}else{
 					this.pageNum ++
+					axios.get(`${href}/api/post?&page=${Number(this.pageNum)}&limit=6`)
+						.then(r=>{
+							this.newList = r.data.list
+							this.totlesNum = Math.ceil(r.data.count/6)	
+							this.pageNum =r.data.current
+							document.documentElement.scrollTop = 0
+	  						document.body.scrollTop = 0
+						})
+
+					
 				}
 			}
 		},
 		components:{
 			Header
+		},
+		mounted(){
+			document.documentElement.scrollTop = 0
+	  						document.body.scrollTop = 0
+			axios.get(`${href}/api/post?&page=1&limit=6`)
+				.then(r=>{
+					this.newList = r.data.list
+					this.totlesNum = Math.ceil(r.data.count/6)	
+					this.pageNum =r.data.current
+			})
 		}
 
 	}
@@ -85,7 +114,7 @@
 	.NewWarp{
 		.Topwarper{
 			height: 436px;
-			background-image: url('/static/img/otherBg.png');
+			background-image: url('/pc/img/otherBg.png');
 			background-repeat: no-repeat;
 			background-position: center;
  

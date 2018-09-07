@@ -91,7 +91,7 @@ html,body{
   font-weight: 400;
 }
 .img{
-  background-image: url('/static/img/server.png');
+  background-image: url('/pc/img/server.png');
 }
 .box{
   border-radius: 50%;
@@ -111,7 +111,10 @@ input , button , textarea{
   border:none;
 }
 
-
+.my-bullet-active{
+  background:rgba(44,40,96,1) !important;
+  opacity: 1 !important;
+}
 
 .Warper{
   width: 100%;
@@ -247,5 +250,42 @@ input , button , textarea{
   -webkit-animation-name: flipOutY;
   animation-name: flipOutY;
 }
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn  ;
+}
+
+
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+
 
 </style>

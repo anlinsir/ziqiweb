@@ -3,7 +3,7 @@
       <div class="warp  header">
 
         <h1 class="pointer">
-          <a class="lh pointer" href="#" title="子奇科技">
+          <a @click='toSomePages(0)' class="lh pointer" href="#" title="子奇科技">
             <span>子奇科技</span>
           </a>
         </h1>  
@@ -25,13 +25,13 @@
             {
               text:'案例展示'
             },
-            {
-              text:'BizPay'
-            }
+            // {
+            //   text:'BizPay'
+            // }
            
 
           ]">{{ii.text}}</li>
-          <li class="bgc color linkWe center fz14 pointer">联系我们</li>
+          <li @click='toSomePages(6)'  class="bgc color linkWe center fz14 pointer">联系我们</li>
         </ul>
 
 
@@ -52,6 +52,32 @@ export default {
   },
   methods:{
     toSomePages(id){
+      this.NavActive = id
+      if(id == 0){
+        this.$router.push('/')
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
+      }
+      if(id == 1){
+        this.$router.push('/')
+        document.documentElement.scrollTop = 363.6363525390625
+        document.body.scrollTop = 363.6363525390625
+      }
+      if(id == 2){
+        this.$router.push('/')
+        document.documentElement.scrollTop = 1000
+        document.body.scrollTop = 1000
+      }
+      if(id == 4){
+        this.$router.push('/')
+        document.documentElement.scrollTop = 1454
+        document.body.scrollTop = 1454
+      }
+      if(id == 6){
+        this.$router.push('/')
+        document.documentElement.scrollTop = 3087.272705078125
+        document.body.scrollTop = 3087.272705078125
+      }
       if(id == 3){
         this.$router.push('/news')
       }else if(id == 0){
@@ -60,8 +86,17 @@ export default {
     }
   },
   mounted(){
+    if(this.$route.name == 'news' || this.$route.name == 'newsDealis'){
+       this.NavActive = 3
+    }
+    if(document.documentElement.scrollTop > 1){
+         this.scrollMove = 'Headermove'
+    }else{
+       this.scrollMove = ''
+    }
     window.onscroll = ()=>{
-      if(document.documentElement.scrollTop > 1){
+      // console.log(document.documentElement.scrollTop)
+      if(document.documentElement.scrollTop > 1 || document.body.scrollTop > 1){
         this.scrollMove = 'Headermove'
       }else{
         this.scrollMove = ''
@@ -84,14 +119,15 @@ export default {
     /*// position: sticky;*/
      transition: all 1s;
     top:0;
-    z-index: 2;
+    z-index: 170;
     .header{
       height: 70px;
       >h1{
         margin-right: 200px;
         float: left;
         >a{
-          background-image: url('/static/img/headerLogo.png');
+          background-image: url('/pc/img/headerLogo.png');
+          background-repeat: no-repeat;
           transform: translateY(12px);
           width: 162px;
 
@@ -105,6 +141,9 @@ export default {
         height: 70px;
         line-height: 70px;
         float: left;
+        >.NavActive{
+          color: #6DEBD1;
+        }
         >li{
           transition: all .5s;
           color: var(--color);
