@@ -89,7 +89,7 @@
  		</ul>
 
  		<div class="Topwarper">
- 			<canvas></canvas>
+ 			<!-- <canvas style="width: 100%;height: 100%;"></canvas> -->
  			<div class="Topwarp mw rb color">
  				<div class="positionCenter center">
  					<p class="Bigtitle">创新的区块链技术解决方案与 <br> 一站式应用落地孵化</p>
